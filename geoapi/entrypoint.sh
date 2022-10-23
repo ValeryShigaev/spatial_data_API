@@ -13,6 +13,8 @@ then
 python manage.py flush --no-input
 python manage.py makemigrations --noinput
 python manage.py migrate
-#python manage.py loaddata category.json
+
+python manage.py loaddata objects.json
+python manage.py loaddata users.json
 
 exec "$@"

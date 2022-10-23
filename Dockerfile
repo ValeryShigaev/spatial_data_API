@@ -14,7 +14,7 @@ COPY ./requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY app/entrypoint.sh .
+COPY geoapi/entrypoint.sh .
 
 COPY . .
 
