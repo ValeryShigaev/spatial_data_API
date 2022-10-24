@@ -4,9 +4,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/geoapi
 
 RUN apk add -u zlib-dev jpeg-dev gcc musl-dev
+
+RUN apk add --no-cache geos gdal
 
 RUN pip install --upgrade pip
 
@@ -18,4 +20,5 @@ COPY geoapi/entrypoint.sh .
 
 COPY . .
 
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+RUN chmod +x /usr/src/geoapi/entrypoint.sh
+ENTRYPOINT ["/usr/src/geoapi/entrypoint.sh"]

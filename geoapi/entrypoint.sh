@@ -1,20 +1,13 @@
 #!/bin/sh
 
-if [ "$DATABASE" = "postgres" ]
-then
-    echo "Waiting for postgres..."
+# Installing spatial dependencies
 
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-      sleep 0.1
-    done
 
-    echo "PostgreSQL started"
 
-python manage.py flush --no-input
-python manage.py makemigrations --noinput
-python manage.py migrate
-
-python manage.py loaddata objects.json
-python manage.py loaddata users.json
+cd geoapi
+python3 manage.py flush --no-input
+python3 manage.py makemigrations --noinput
+python3 manage.py migrate
+python3 manage.py loaddata objects.json
 
 exec "$@"

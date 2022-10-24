@@ -3,6 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from datetime import timedelta
+from glob import glob
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,6 +83,13 @@ TEMPLATES = [
     },
 ]
 
+GDAL_LIBRARY_PATH = glob('/usr/lib/libgdal.so.*')[0]
+GEOS_LIBRARY_PATH = glob('/usr/lib/libgeos_c.so.*')[0]
+
+SERIALIZATION_MODULES = {
+    "geojson": "django.contrib.gis.serializers.geojson",
+ }
+
 WSGI_APPLICATION = 'geoapi.wsgi.application'
 
 # Temporary test database
@@ -92,8 +100,8 @@ DATABASES = {
         'NAME': "postgres_test",
         'USER': "admin",
         'PASSWORD': "admin",
-        'HOST': "localhost",
-        'PORT': "5433",
+        'HOST': "db",
+        'PORT': "5432",
     }
 }
 

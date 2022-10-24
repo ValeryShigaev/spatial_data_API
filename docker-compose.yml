@@ -6,7 +6,7 @@ services:
        ports:
            - "8000:8000"
        volumes:
-         - ./app:/usr/src/geoapi
+         - ./app:/usr/src/app
        env_file:
          - ./.env
        depends_on:
@@ -14,12 +14,13 @@ services:
    db:
      image: postgres:12.0-alpine
      ports:
-       - "5433:5432"
+       - "25432:5432"
      volumes:
        - postgres_data:/var/lib/postgresql/data/
      environment:
        - POSTGRES_USER=admin
        - POSTGRES_PASSWORD=admin
        - POSTGRES_DB=postgres_test
+       - ALLOW_IP_RANGE=0.0.0.0/0
 volumes:
   postgres_data:
