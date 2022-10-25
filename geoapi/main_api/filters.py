@@ -4,6 +4,8 @@ from .models import ObjectsP
 
 
 class ObjectsFilter(django_filters.FilterSet):
+    """ Objects filterset """
+
     name = django_filters.CharFilter(lookup_expr='icontains')
     fid = django_filters.NumberFilter()
     org = django_filters.CharFilter(lookup_expr='icontains')

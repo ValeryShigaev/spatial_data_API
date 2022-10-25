@@ -5,6 +5,7 @@ from .utils.utils import collect_geojson_features, geometry_from_xy
 
 
 class ObjectsListSerializer(serializers.ModelSerializer):
+    """ Serialized objects features to geojson """
 
     def to_representation(self, instance):
 
@@ -16,6 +17,8 @@ class ObjectsListSerializer(serializers.ModelSerializer):
 
 
 class ObjectsCreateSerializer(serializers.ModelSerializer):
+    """ Creating objects """
+
     x = serializers.FloatField(required=True, write_only=True,
                                help_text="float: WGS-84 N coordinate")
     y = serializers.FloatField(required=True, write_only=True,
@@ -27,6 +30,7 @@ class ObjectsCreateSerializer(serializers.ModelSerializer):
 
 
 class ObjectsUpdateSerializer(serializers.ModelSerializer):
+    """ Updating objects """
 
     class Meta:
         model = ObjectsP
@@ -34,6 +38,8 @@ class ObjectsUpdateSerializer(serializers.ModelSerializer):
 
 
 class ObjectsMoveSerializer(serializers.ModelSerializer):
+    """ Updates objects geometry """
+
     x = serializers.FloatField(required=True, write_only=True,
                                help_text="float: WGS-84 N coordinate")
     y = serializers.FloatField(required=True, write_only=True,
@@ -54,6 +60,7 @@ class ObjectsMoveSerializer(serializers.ModelSerializer):
 
 
 class ObjectsDeleteSerializer(serializers.ModelSerializer):
+    """ Deleting objects """
 
     class Meta:
         model = ObjectsP
