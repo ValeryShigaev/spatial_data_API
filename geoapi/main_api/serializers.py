@@ -12,7 +12,6 @@ class ObjectsListSerializer(serializers_geo.GeoFeatureModelSerializer):
     other_point = serializers_geo.GeometrySerializerMethodField()
 
     def get_other_point(self, obj):
-        print(GEOSGeometry(obj.geom).coords)
         return Point(GEOSGeometry(obj.geom).coords[0])
 
     class Meta:
