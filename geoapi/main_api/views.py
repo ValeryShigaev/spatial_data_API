@@ -1,7 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 from .filters import ObjectsFilter
 from .models import ObjectsP
@@ -19,14 +18,6 @@ class ObjectsList(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, ]
     filterset_class = ObjectsFilter
     queryset = ObjectsP.objects.all()
-
-    def list(self, request, *args, **kwargs):
-        """ Convert output to geojson """
-
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
-        result = collect_geojson(serializer.data)
-        return Response(result)
 
 
 class ObjectsCreate(generics.CreateAPIView):

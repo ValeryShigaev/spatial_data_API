@@ -1,19 +1,24 @@
 from rest_framework import serializers
+from rest_framework_gis import serializers as serializers_geo
+from django.contrib.gis.geos import GEOSGeometry, Point
 
 from .models import ObjectsP
-from .utils.utils import collect_geojson_features, geometry_from_xy
+from .utils.utils import geometry_from_xy
 
 
-class ObjectsListSerializer(serializers.ModelSerializer):
+class ObjectsListSerializer(serializers_geo.GeoFeatureModelSerializer):
     """ Serialized objects features to geojson """
 
-    def to_representation(self, instance):
+    other_point = serializers_geo.GeometrySerializerMethodField()
 
-        return collect_geojson_features(instance)
+    def get_other_point(self, obj):
+        print(GEOSGeometry(obj.geom).coords)
+        return Point(GEOSGeometry(obj.geom).coords[0])
 
     class Meta:
         model = ObjectsP
         fields = ('fid', 'name', 'region', 'org', 'year',)
+        geo_field = 'other_point'
 
 
 class ObjectsCreateSerializer(serializers.ModelSerializer):
